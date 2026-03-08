@@ -2,12 +2,12 @@ import Box from "@mui/material/Box";
 import { styled } from "@mui/material/styles";
 
 const BoardBox = styled(Box)({
-  width: 300,
-  height: 300,
+  width: 350,
+  height: 350,
   display: "grid",
   gridTemplateColumns: "repeat(3, 1fr)",
   gap: 12,
-  backgroundColor: "white",
+  backgroundColor: "#88bed7ff",
   borderRadius: 10,
   padding: 10,
 

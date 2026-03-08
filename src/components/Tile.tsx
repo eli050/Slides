@@ -1,20 +1,19 @@
 import type { JSX } from "react";
-import Button from "@mui/material/Button";
+import TileButton from "./styled_components/TileButton";
 
 type TileProps = {
     value: number | null;
     onClick: () => void;
+    disabled: boolean;
 }
 
-
-function Tile({ value, onClick }: TileProps): JSX.Element {
+function Tile({ value, onClick, disabled }: TileProps): JSX.Element {
 
     return (
-       <Button 
-       onClick={onClick}
-       >
-           {value}
-       </Button>
+        <TileButton
+            onClick={onClick} disabled={disabled}>
+            {value}
+        </TileButton>
     )
 }
 
