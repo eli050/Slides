@@ -1,7 +1,9 @@
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 
-const TileButton = styled(Button)({
+export const TileButton = styled(Button)({
+    '--azure-blue': "#1565c0",
+    '--dark-white': "#e1d9d1",
     width: "100%",
     height: "100%",
     borderRadius: 10,
@@ -10,14 +12,12 @@ const TileButton = styled(Button)({
     color: "white",
 
     "&:hover": {
-        backgroundColor: "#1565c0",
+        backgroundColor: "var(--azure-blue)",
         transform: "scale(1.03)",
     },
 
     "&.Mui-disabled": {
-        backgroundColor: "#d9d9d9",
-        color: "#666",
+        backgroundColor: "var(--dark-white)",
+        color: "gray",
     },
 });
-
-export default TileButton;

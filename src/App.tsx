@@ -1,8 +1,8 @@
 import { Route, Routes } from "react-router-dom"
-import GameBoardPage from "./pages/GameBoardPage"
+import {GameBoardPage} from "./pages/GameBoardPage"
 
 
-function App() {
+export function App(): JSXElement{
   return (
     <Routes>
       <Route path="/"/>
@@ -10,5 +10,3 @@ function App() {
     </Routes>
   )
 }
-
-export default App

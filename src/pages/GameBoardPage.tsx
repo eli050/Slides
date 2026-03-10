@@ -1,7 +1,6 @@
-import type { JSX } from "react";
-import Board from "../components/Board";
+import {Board} from "../components/Board";
 
-function GameBoardPage(): JSX.Element{
+export function GameBoardPage(): JSXElement{
 
     return(
         <div>
@@ -9,5 +8,3 @@ function GameBoardPage(): JSX.Element{
         </div>
     )
 }
-
-export default GameBoardPage

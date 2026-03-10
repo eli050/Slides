@@ -1,13 +1,12 @@
-import type { JSX } from "react";
-import TileButton from "./styled_components/TileButton";
+import {TileButton} from "./styled_components/TileButton";
 
 type TileProps = {
-    value: number | null;
+    value?: number | null;
     onClick: () => void;
     disabled: boolean;
 }
 
-function Tile({ value, onClick, disabled }: TileProps): JSX.Element {
+export function Tile({ value = null, onClick, disabled }: TileProps): JSXElement {
 
     return (
         <TileButton
@@ -16,5 +15,3 @@ function Tile({ value, onClick, disabled }: TileProps): JSX.Element {
         </TileButton>
     )
 }
-
-export default Tile;

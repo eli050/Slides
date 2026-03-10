@@ -1,30 +1,33 @@
-import Tile from "./Tile";
-import { useState, type JSX } from "react";
-import _ from 'lodash'
-import BoardBox from "./styled_components/BoardBox";
-import { canMove, moveTile } from "../utils/boardLogic"
+import {Tile} from "./Tile";
+import { useState} from "react";
+import {BoardBox} from "./styled_components/BoardBox";
+import { canMove, createBoard, swapTiles } from "../utils/boardLogic"
 
-function Board(): JSX.Element {
-    const [tileValues, setTileValues] = useState<(number | null)[]>(_.shuffle([..._.range(1, 9), null]));
+export function Board(): JSXElement {
+    const [tileValues, setTileValues] = useState<number[]>(createBoard(0,9));
     
     function handleTileClick(index: number) {
         if (!canMove(tileValues, index)) return;
-        setTileValues(moveTile(tileValues, index));
+        setTileValues(swapTiles(tileValues, index));
     }
-
-    const tileElements: JSX.Element[] = tileValues.map(
-        (value, index) => <Tile
-            key={index}
-            onClick={() => handleTileClick(index)}
-            value={value}
-            disabled={!canMove(tileValues, index)}
-        />)
 
     return (
         <BoardBox>
-            {tileElements}
+            {tileValues.map(
+                (value, index) =>
+                !(value === 0) ?
+            <Tile
+                key={index}
+                onClick={() => handleTileClick(index)}
+                value={value}
+                disabled={!canMove(tileValues, index)}
+            /> :
+            <Tile
+                key={index}
+                onClick={() => handleTileClick(index)}
+                disabled={!canMove(tileValues, index)}
+            />
+        )}
         </BoardBox>
     )
 }
-
-export default Board;

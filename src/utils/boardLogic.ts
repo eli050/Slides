@@ -1,25 +1,56 @@
+import { range, random } from "lodash";
 
-function canMove(board:(number | null)[], index:number):boolean{
-    
-    const emptyTileIndex:number = board.indexOf(null);
+const EMPTY_TILE = 0;
 
-    const row = Math.floor(index / 3);
-    const column = index % 3;
 
-    const emptyTileRow = Math.floor(emptyTileIndex / 3);
-    const emptyTileColumn = emptyTileIndex % 3;
+function getNeighbors(index: number, boardLength: number): number[] {
+    const boardSize = boardLength ** (0.5)
+    const row = Math.floor(index / boardSize);
+    const column = index % boardSize;
+    const neighbors = [];
 
-    const sameRow = row === emptyTileRow && Math.abs(column - emptyTileColumn) === 1;
-    const sameColumn = column === emptyTileColumn && Math.abs(row - emptyTileRow) === 1;
-    
-    return sameRow || sameColumn;
+    if (row > 0) {
+        neighbors.push(index - boardSize)
+    }
+
+    if (row < boardSize - 1) {
+        neighbors.push(index + boardSize)
+    }
+
+    if (column > 0) {
+        neighbors.push(index - 1)
+    }
+
+    if (column < boardSize - 1) {
+        neighbors.push(index + 1)
+    }
+
+    return neighbors;
 }
 
-function moveTile(board:(number | null)[], index:number):(number | null)[]{
-    const emptyIndex:number = board.indexOf(null);
+export function canMove(board: number[], index: number): boolean {
+    const emptyTileIndex = board.indexOf(EMPTY_TILE);
+    const neighbors = getNeighbors(emptyTileIndex, board.length)
+    return neighbors.includes(index);
+}
+
+export function swapTiles(board: number[], index: number): number[] {
+    const emptyIndex: number = board.indexOf(EMPTY_TILE);
     const nextBoard = [...board];
-    [nextBoard[index], nextBoard[emptyIndex]] = [nextBoard[emptyIndex], nextBoard[index]] 
+    [nextBoard[index], nextBoard[emptyIndex]] = [nextBoard[emptyIndex], nextBoard[index]]
     return nextBoard;
 }
 
-export {canMove, moveTile}
+export function createBoard(start: number, end: number): number[] {
+    let board = range(start, end);
+    const shuffleTimes = random(200, 500);
+
+    for (let i = 0; i < shuffleTimes; i++) {
+        const emptyTileIndex = board.indexOf(EMPTY_TILE);
+        const neighbors = getNeighbors(emptyTileIndex, board.length);
+        const randomIndex = random(neighbors.length - 1);
+        board = swapTiles(board, neighbors[randomIndex]);
+    }
+
+    return board;
+}
