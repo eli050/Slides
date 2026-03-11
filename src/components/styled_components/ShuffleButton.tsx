@@ -2,10 +2,10 @@ import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import { BaseBotton } from "./BaseButton";
 
-export const TileButton = styled(Button)({
+export const ShuffleButton = styled(Button)({
   ...BaseBotton,
-  width: "100%",
-  height: "100%",
-  borderRadius: 10,
-  fontSize: "1.5rem",
+  minWidth: 0,
+  width: 40,
+  height: 40,
+  borderRadius: "50%",
 });
