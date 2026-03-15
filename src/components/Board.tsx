@@ -5,9 +5,10 @@ import { canMove,swapTiles } from "../utils/boardLogic"
 type BoardProps = {
     tileValues: number[];
     setTileValues: React.Dispatch<React.SetStateAction<number[]>>;
+    boardSize: number;
 }
 
-export function Board({tileValues, setTileValues}: BoardProps): JSXElement {
+export function Board({tileValues, setTileValues, boardSize}: BoardProps): JSXElement {
 
     function handleTileClick(index: number) {
         if (!canMove(tileValues, index)) return;
@@ -15,7 +16,7 @@ export function Board({tileValues, setTileValues}: BoardProps): JSXElement {
     }
 
     return (
-        <BoardBox>
+        <BoardBox boardSize={boardSize}>
             {tileValues.map(
                 (value, index) =>
                 !(value === 0) ?
