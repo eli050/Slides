@@ -2,7 +2,6 @@ import { range, random } from "lodash";
 
 const EMPTY_TILE = 0;
 
-
 function getNeighbors(index: number, boardLength: number): number[] {
     const boardSize = boardLength ** (0.5)
     const row = Math.floor(index / boardSize);
@@ -53,4 +52,9 @@ export function createBoard(start: number, end: number): number[] {
     }
 
     return board;
+}
+
+export function isBoarsComplete(board:number[]):boolean{
+    const completeBoard = [...range(1, board.length), 0]
+    return JSON.stringify(board) === JSON.stringify(completeBoard);
 }
