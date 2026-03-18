@@ -6,9 +6,11 @@ import { GamePanel } from "../components/styled_components/GamePanel";
 import { BoardSizeInput } from "../components/BoardSizeInput";
 import { Solved } from "../components/Solved";
 
+const DEFAULT_SIZE = 3;
+
 export function GameBoardPage(): JSXElement{
     const [isWon, setIsWon] = useState<boolean>(false);
-    const [boardSize, setBoardSize] = useState<number>(3)
+    const [boardSize, setBoardSize] = useState<number>(DEFAULT_SIZE)
     const [tileValues, setTileValues] = useState<number[]>(createBoard(0, boardSize * boardSize));
 
     function handleTileClick() {
