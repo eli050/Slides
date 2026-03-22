@@ -3,7 +3,7 @@ import { styled } from "@mui/material/styles";
 
 
 
-export const SizeInput = styled(TextField)({
+export const Input = styled(TextField)({
     '--azure-blue': "#529ee9ff",
 
     "& .MuiInputLabel-root": {

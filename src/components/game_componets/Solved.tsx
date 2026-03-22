@@ -6,7 +6,8 @@ import {
      DialogTitle, 
      IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { createBoard } from "../utils/boardLogic";
+import { createBoard } from "../../utils/boardLogic";
+
 
 type SolvedProps = {
     isWon: boolean;

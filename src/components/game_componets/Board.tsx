@@ -1,6 +1,6 @@
 import {Tile} from "./Tile";
-import {BoardBox} from "./styled_components/BoardBox";
-import { canMove,isBoarsComplete,swapTiles } from "../utils/boardLogic"
+import {BoardBox} from "../styled_components/BoardBox";
+import { canMove,isBoarsComplete,swapTiles } from "../../utils/boardLogic"
 
 type BoardProps = {
     tileValues: number[];

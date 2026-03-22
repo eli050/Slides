@@ -1,4 +1,4 @@
-import {TileButton} from "./styled_components/TileButton";
+import {TileButton} from "../styled_components/TileButton";
 
 type TileProps = {
     value?: number | null;

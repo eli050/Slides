@@ -1,5 +1,5 @@
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
-import { ShuffleButton } from "./styled_components/ShuffleButton";
+import { ShuffleButton } from "../styled_components/ShuffleButton";
 
 type ShuffleProps = {
     onClick: () => void;

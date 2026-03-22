@@ -1,5 +1,6 @@
 import {Autocomplete, type AutocompleteRenderInputParams,} from "@mui/material";
-import { SizeInput } from "./styled_components/SizeInput";
+import { Input } from "../styled_components/Input";
+
 
 type BoardSizeOption = {
   label: string;
@@ -17,7 +18,7 @@ type BoardSizeInputProps = {
 };
 
 function RenderInput(params: AutocompleteRenderInputParams): JSXElement{
-    return <SizeInput {...params} 
+    return <Input {...params} 
     label="Board size"
     placeholder="Select board size" 
     /> 

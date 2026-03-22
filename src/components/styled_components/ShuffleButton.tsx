@@ -1,9 +1,7 @@
-import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
-import { BaseBotton } from "./BaseButton";
+import { BaseButton } from "./BaseButton";
 
-export const ShuffleButton = styled(Button)({
-  ...BaseBotton,
+export const ShuffleButton = styled(BaseButton)({
   minWidth: 0,
   width: 40,
   height: 40,

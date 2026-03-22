@@ -1,9 +1,7 @@
-import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
-import { BaseBotton } from "./BaseButton";
+import { BaseButton } from "./BaseButton";
 
-export const TileButton = styled(Button)({
-  ...BaseBotton,
+export const TileButton = styled(BaseButton)({
   width: "100%",
   height: "100%",
   borderRadius: 10,

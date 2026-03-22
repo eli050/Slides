@@ -1,5 +1,7 @@
+import { Button } from "@mui/material";
+import { styled } from "@mui/material/styles";
 
-export const BaseBotton = {
+export const BaseButton = styled(Button)({
   '--azure-blue': "#529ee9ff",
   '--blue': "#1565c0",
   '--dark-white': "#e1d9d1",
@@ -20,4 +22,4 @@ export const BaseBotton = {
   "&:focus": {
     outline: "none",
   },
-};
+});

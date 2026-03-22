@@ -1,10 +1,10 @@
 import { useState } from "react";
-import {Board} from "../components/Board";
-import { createBoard,} from "../utils/boardLogic";
-import { Shuffle } from "../components/Shuffle";
+import { createBoard } from "../utils/boardLogic";
 import { GamePanel } from "../components/styled_components/GamePanel";
-import { BoardSizeInput } from "../components/BoardSizeInput";
-import { Solved } from "../components/Solved";
+import { BoardSizeInput } from "../components/game_componets/BoardSizeInput";
+import { Board } from "../components/game_componets/Board";
+import { Shuffle } from "../components/game_componets/Shuffle";
+import { Solved } from "../components/game_componets/Solved";
 
 const DEFAULT_SIZE = 3;
 
