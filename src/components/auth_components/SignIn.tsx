@@ -5,18 +5,18 @@ import { Input } from "../styled_components/Input";
 import { AuthButton } from "../styled_components/AuthButton";
 
 type SignInProps = {
-    onSubmit: (data:LoginFormData) => void;
+    onSubmit: (data:SignInFormData) => void;
 }
 
-type LoginFormData = {
-  email: string;
-  password: number;
+type SignInFormData = {
+    email: string;
+    password: number;
 };
 
 
 export function SignIn({onSubmit}:SignInProps):JSXElement{
 
-    const {register, handleSubmit,} = useForm<LoginFormData>()
+    const {register, handleSubmit,} = useForm<SignInFormData>()
 
     return (
         <AuthForm onSubmit={handleSubmit(onSubmit)}>
