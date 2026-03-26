@@ -6,8 +6,8 @@ import { Form } from "../auth_components/Form";
 
 export const AuthForm = styled(Form)({
     "--deep-blue": "rgb(5, 42, 59)",
-    height: 400,
-    width: 300,
+    height: 500,
+    width: 400,
     display: "flex",
     flexDirection: "column",
     gap: 15,

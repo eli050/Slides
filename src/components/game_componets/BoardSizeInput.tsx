@@ -1,17 +1,9 @@
 import {Autocomplete, type AutocompleteRenderInputParams,} from "@mui/material";
 import { Input } from "../styled_components/Input";
+import { range } from "lodash";
+import { MAXIMUM_SIZE, MINIMUM_SIZE } from "../../constants/gameVariables";
 
-
-type BoardSizeOption = {
-  label: string;
-  value: number;
-};
-
-const boardSizeOptions: BoardSizeOption[] = [
-  { label: "3 x 3", value: 3 },
-  { label: "4 x 4", value: 4 },
-  { label: "5 x 5", value: 5 },
-];
+const BOARD_SIZE_OPTIONS: number[] = range(MINIMUM_SIZE, MAXIMUM_SIZE +1);
 
 type BoardSizeInputProps = {
   onBoardSizeChange: (size: number) => void;
@@ -24,16 +16,15 @@ function RenderInput(params: AutocompleteRenderInputParams): JSXElement{
     /> 
 }
 
-
 export function BoardSizeInput({onBoardSizeChange}: BoardSizeInputProps): JSXElement{
 
     return (
         <Autocomplete
-            options={boardSizeOptions}
-            getOptionLabel={(option) => option.label}
+            options={BOARD_SIZE_OPTIONS}
+            getOptionLabel={(option) => `${option} x ${option}` }
             onChange={(_, option) => {
-                if (option !== null) {
-                onBoardSizeChange(option.value);
+                if (option) {
+                onBoardSizeChange(option);
                 }
             }}
             renderInput={(params) => RenderInput(params)}

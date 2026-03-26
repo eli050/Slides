@@ -1,21 +1,30 @@
 import {Tile} from "./Tile";
 import {BoardBox} from "../styled_components/BoardBox";
-import { canMove,isBoarsComplete,swapTiles } from "../../utils/boardLogic"
+import { canMove,isBoardComplete,swapTiles } from "../../utils/boardLogic"
+
+const EMPTY_TILE = 0;
+
 
 type BoardProps = {
     tileValues: number[];
     setTileValues: React.Dispatch<React.SetStateAction<number[]>>;
     setIsWon: React.Dispatch<React.SetStateAction<boolean>>;
     boardSize: number;
+    canPlay: boolean;
 }
 
-export function Board({tileValues, setTileValues, boardSize, setIsWon}: BoardProps): JSXElement {
+export function Board({
+    tileValues,
+    setTileValues, 
+    boardSize, 
+    setIsWon,
+    canPlay, }: BoardProps): JSXElement {
 
     function handleTileClick(index: number) {
         if (!canMove(tileValues, index)) return;
         const newBoard = swapTiles(tileValues, index);
         setTileValues(newBoard);
-        if (isBoarsComplete(newBoard)){
+        if (isBoardComplete(newBoard)){
             setIsWon(true);
         }
     }
@@ -24,17 +33,11 @@ export function Board({tileValues, setTileValues, boardSize, setIsWon}: BoardPro
         <BoardBox boardSize={boardSize}>
             {tileValues.map(
                 (value, index) =>
-                !(value === 0) ?
             <Tile
                 key={index}
                 onClick={() => handleTileClick(index)}
-                value={value}
-                disabled={!canMove(tileValues, index)}
-            /> :
-            <Tile
-                key={index}
-                onClick={() => handleTileClick(index)}
-                disabled={!canMove(tileValues, index)}
+                value={!(value === EMPTY_TILE) ? value : null}
+                disabled={!canMove(tileValues, index) || !canPlay}
             />
         )}
         </BoardBox>

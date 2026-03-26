@@ -4,7 +4,7 @@ import { styled } from "@mui/material/styles";
 
 
 export const Input = styled(TextField)({
-    '--azure-blue': "#529ee9ff",
+    '--azure-blue': "rgb(70, 151, 232)",
 
     "& .MuiInputLabel-root": {
         color: "white",

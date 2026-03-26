@@ -4,43 +4,61 @@ import { GamePanel } from "../components/styled_components/GamePanel";
 import { BoardSizeInput } from "../components/game_componets/BoardSizeInput";
 import { Board } from "../components/game_componets/Board";
 import { Shuffle } from "../components/game_componets/Shuffle";
-import { Solved } from "../components/game_componets/Solved";
+import { WinPopUp } from "../components/game_componets/WinPopUp";
+import { MINIMUM_SIZE, START_TILE } from "../constants/gameVariables";
+import { useUser } from "../components/auth_components/UserContext";
+import {Typography } from "@mui/material";
 
-const DEFAULT_SIZE = 3;
+const DEFAULT_SIZE = MINIMUM_SIZE;
 
 export function GameBoardPage(): JSXElement{
     const [isWon, setIsWon] = useState<boolean>(false);
+    const [canPlay, setCanPlay] = useState<boolean>(true);
     const [boardSize, setBoardSize] = useState<number>(DEFAULT_SIZE)
-    const [tileValues, setTileValues] = useState<number[]>(createBoard(0, boardSize * boardSize));
-
-    function handleTileClick() {
-        const newBoard = createBoard(0,boardSize * boardSize);
+    const [tileValues, setTileValues] = useState<number[]>(createBoard(START_TILE, boardSize**2));
+    const { currentUser} = useUser();
+    
+    function handleShuffleClick() {
+        const newBoard = createBoard(START_TILE,boardSize**2);
         setTileValues(newBoard);
+        setCanPlay(true);
     }
 
     function handleBoardSizeChange(newSize: number) {
         setBoardSize(newSize);
-        setTileValues(createBoard(0, newSize * newSize));
+        setTileValues(createBoard(START_TILE, newSize**2));
+        setCanPlay(true);
     }
 
-    function handelClose() {
+    function handleWinPopUpClose() {
         setIsWon(false);
+        setCanPlay(false);
+    }
+
+    function handlePlayAgain(){
+        setIsWon(false);
+        setCanPlay(true);
     }
 
     return(
         <GamePanel>
+            <Typography variant="h4" component="h1">
+                {`Welcome ${currentUser?.name}`}
+            </Typography>
             <BoardSizeInput onBoardSizeChange={handleBoardSizeChange}/>
             <Board 
             tileValues={tileValues} 
             setTileValues={setTileValues}
             setIsWon={setIsWon}
-            boardSize={boardSize}/>
-            <Shuffle onClick={handleTileClick}/>
-            <Solved 
+            boardSize={boardSize}
+            canPlay={canPlay}/>
+            <Shuffle onClick={handleShuffleClick}/>
+            <WinPopUp 
             isWon={isWon} 
             boardSize={boardSize}
-            handelClose={handelClose}
-            setTileValues={setTileValues}/>
+            handleClose={handleWinPopUpClose}
+            setTileValues={setTileValues}
+            handlePlayAgain={handlePlayAgain}/>
         </GamePanel>
     )
 }

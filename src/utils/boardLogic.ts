@@ -37,11 +37,12 @@ export function swapTiles(board: number[], index: number): number[] {
     const emptyIndex: number = board.indexOf(EMPTY_TILE);
     const nextBoard = [...board];
     [nextBoard[index], nextBoard[emptyIndex]] = [nextBoard[emptyIndex], nextBoard[index]]
+
     return nextBoard;
 }
 
 export function createBoard(start: number, end: number): number[] {
-    let board = range(start, end);
+    let board = [...range(start, end), EMPTY_TILE];
     const shuffleTimes = random(200, 500);
 
     for (let i = 0; i < shuffleTimes; i++) {
@@ -54,7 +55,7 @@ export function createBoard(start: number, end: number): number[] {
     return board;
 }
 
-export function isBoarsComplete(board:number[]):boolean{
-    const completeBoard = [...range(1, board.length), 0]
+export function isBoardComplete(board:number[]):boolean{
+    const completeBoard = [...range(1, board.length), EMPTY_TILE]
     return JSON.stringify(board) === JSON.stringify(completeBoard);
 }

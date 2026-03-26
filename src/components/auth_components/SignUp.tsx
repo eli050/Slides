@@ -1,47 +1,56 @@
 import { useForm } from "react-hook-form";
 import { AuthForm } from "../styled_components/AuthForm";
-import { CardHeader } from '@mui/material';
+import { Button, CardHeader, DialogActions } from '@mui/material';
 import { Input } from "../styled_components/Input";
 import { AuthButton } from "../styled_components/AuthButton";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Typography from "@mui/material/Typography";
+import type { SignUpData } from "../../constants/authTypes";
+import { AlertPopUp } from "../AlertPopUp";
 
 type SignUpProps = {
-    onSubmit: (data:SignUpFormData) => void;
+    onSubmit: (data:SignUpData) => void;
+    error: string|null;
+    setError: React.Dispatch<React.SetStateAction<string|null>>;
 }
 
-type SignUpFormData = {
-    name: string;
-    email: string;
-    password: number;
-};
-
-
-export function SignUp({onSubmit}:SignUpProps):JSXElement{
-
-    const {register, handleSubmit,} = useForm<SignUpFormData>()
+export function SignUp({onSubmit, error, setError}:SignUpProps):JSXElement{
+    const navigate = useNavigate()
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+        } = useForm<SignUpData>()
 
     return (
         <AuthForm onSubmit={handleSubmit(onSubmit)}>
             <CardHeader title="Sign Up" />
+            
             <Input
                 label="Name"
                 type="text"
+                error={!!errors.name}
+                helperText={errors.name?.message ?? ""}
                 {...register("name", { required: "Name is required" })}
             />
+
             <Input
                 label="Email"
                 type="email"
+                error={!!errors.email}
+                helperText={errors.email?.message ?? ""}
                 {...register("email", { required: "Email is required" })}
             />
 
             <Input
                 label="Password"
                 type="password"
-                {...register("password", { required: "Password is required", valueAsNumber: true })}
+                error={!!errors.email}
+                helperText={errors.password?.message ?? ""}
+                {...register("password", { required: "Password is required" })}
             />
 
-            <AuthButton type="submit" variant="contained" fullWidth>
+            <AuthButton type="submit">
                 SignUp
             </AuthButton>
 
@@ -49,6 +58,23 @@ export function SignUp({onSubmit}:SignUpProps):JSXElement{
                 You already have an account?{" "}
                 <Link to="/sign-in" >Sign in</Link>
             </Typography>
+            <AlertPopUp 
+                open={!!error}
+                onClose={() => setError(null)}
+                title="Error!"
+                content={`${error}`}
+            >
+                <DialogActions>
+                    <Button
+                    onClick={() => {
+                        setError(null);
+                        navigate("/sign-in")
+                    }}
+                    >
+                        Sign In
+                    </Button>
+                </DialogActions>  
+            </AlertPopUp>
         </AuthForm>
     )
 }

@@ -4,6 +4,6 @@ import { BaseButton } from "./BaseButton";
 
 
 export const AuthButton = styled(BaseButton)({
-    width: 120,
+    width: 150,
     marginTop: "auto",
 })
