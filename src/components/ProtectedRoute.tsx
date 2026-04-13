@@ -3,11 +3,7 @@ import { useUser } from "./auth_components/UserContext";
 
 
 export function ProtectedRoute(): JSXElement {
-  const { currentUser } = useUser();
+    const { currentUser } = useUser();
 
-  if (!currentUser) {
-    return <Navigate to="/" replace />;
-  }
-
-  return <Outlet />;
+    return !currentUser ? <Navigate to="/" replace /> : <Outlet />;
 }

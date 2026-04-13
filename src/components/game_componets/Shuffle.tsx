@@ -5,11 +5,10 @@ type ShuffleProps = {
     onClick: () => void;
 }
 
-export function Shuffle({onClick}: ShuffleProps): JSXElement {
+export function Shuffle({ onClick }: ShuffleProps): JSXElement {
     return (
         <ShuffleButton onClick={onClick}>
             <RestartAltIcon />
         </ShuffleButton>
     )
 }
-

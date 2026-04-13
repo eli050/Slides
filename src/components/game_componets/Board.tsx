@@ -1,9 +1,8 @@
-import {Tile} from "./Tile";
-import {BoardBox} from "../styled_components/BoardBox";
-import { canMove,isBoardComplete,swapTiles } from "../../utils/boardLogic"
+import { Tile } from "./Tile";
+import { BoardBox } from "../styled_components/BoardBox";
+import { canMove, isBoardComplete, swapTiles } from "../../utils/boardLogic"
 
 const EMPTY_TILE = 0;
-
 
 type BoardProps = {
     tileValues: number[];
@@ -15,16 +14,18 @@ type BoardProps = {
 
 export function Board({
     tileValues,
-    setTileValues, 
-    boardSize, 
+    setTileValues,
+    boardSize,
     setIsWon,
     canPlay, }: BoardProps): JSXElement {
 
     function handleTileClick(index: number) {
+
         if (!canMove(tileValues, index)) return;
         const newBoard = swapTiles(tileValues, index);
         setTileValues(newBoard);
-        if (isBoardComplete(newBoard)){
+
+        if (isBoardComplete(newBoard)) {
             setIsWon(true);
         }
     }
@@ -33,13 +34,13 @@ export function Board({
         <BoardBox boardSize={boardSize}>
             {tileValues.map(
                 (value, index) =>
-            <Tile
-                key={index}
-                onClick={() => handleTileClick(index)}
-                value={!(value === EMPTY_TILE) ? value : null}
-                disabled={!canMove(tileValues, index) || !canPlay}
-            />
-        )}
+                    <Tile
+                        key={value}
+                        onClick={() => handleTileClick(index)}
+                        value={!(value === EMPTY_TILE) ? value : null}
+                        disabled={!canMove(tileValues, index) || !canPlay}
+                    />
+            )}
         </BoardBox>
     )
 }

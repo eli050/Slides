@@ -30,6 +30,7 @@ function getNeighbors(index: number, boardLength: number): number[] {
 export function canMove(board: number[], index: number): boolean {
     const emptyTileIndex = board.indexOf(EMPTY_TILE);
     const neighbors = getNeighbors(emptyTileIndex, board.length)
+
     return neighbors.includes(index);
 }
 
@@ -55,7 +56,8 @@ export function createBoard(start: number, end: number): number[] {
     return board;
 }
 
-export function isBoardComplete(board:number[]):boolean{
+export function isBoardComplete(board: number[]): boolean {
     const completeBoard = [...range(1, board.length), EMPTY_TILE]
+    
     return JSON.stringify(board) === JSON.stringify(completeBoard);
 }

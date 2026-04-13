@@ -1,8 +1,4 @@
-type User = {
-  name: string;
-  email: string;
-  password: string;
-};
+import type { User } from "../constants/authTypes";
 
 const STORAGE_KEY = "users";
 const CURRENT_USER_STORAGE_KEY = "currentUser";
@@ -23,7 +19,7 @@ export function addUser(newUser: User): void {
   saveUsers(users);
 }
 
-export function getUser(email: string): User | undefined{
+export function getUser(email: string): User | undefined {
   const users = getUsers();
   const user = users.find((user) => user.email === email);
   return user;
@@ -39,15 +35,15 @@ export function updateUser(email: string, updatedFields: Partial<User>): void {
 
 export function deleteUser(email: string): void {
   const users = getUsers();
-  const filteredUsers = users.filter((book) => book.email !== email);
+  const filteredUsers = users.filter((user) => user.email !== email);
   saveUsers(filteredUsers);
 }
 
-export function changeCurrentUser(user: User): void{
+export function changeCurrentUser(user: User): void {
   sessionStorage.setItem(CURRENT_USER_STORAGE_KEY, JSON.stringify(user))
 }
 
-export function getCurrentUser(): null| User{
+export function getCurrentUser(): null | User {
   const user = sessionStorage.getItem(CURRENT_USER_STORAGE_KEY);
   if (!user) return null;
   return JSON.parse(user);

@@ -3,24 +3,20 @@ import CloseIcon from "@mui/icons-material/Close";
 import { CloseButton } from "./styled_components/CloseButton";
 
 type AlertPopUpProps = {
-   open: boolean;
-   onClose: () => void;
-   title: string;
-   content: string;
-   children?: React.ReactNode;  
+    open: boolean;
+    onClose: () => void;
+    title: string;
+    content: string | null;
+    children?: React.ReactNode;
 }
 
-
-
-export function AlertPopUp({open, onClose, title, content, children}: AlertPopUpProps): JSXElement{
-
-    return(            
+export function AlertPopUp({ open, onClose, title, content, children }: AlertPopUpProps): JSXElement {
+    return (
         <Dialog open={open}>
             <DialogTitle>
                 {title}
                 <CloseButton
-                    onClick={onClose}
-                    >
+                    onClick={onClose}>
                     <CloseIcon />
                 </CloseButton>
             </DialogTitle>
@@ -30,5 +26,5 @@ export function AlertPopUp({open, onClose, title, content, children}: AlertPopUp
             </DialogContent>
             {children}
         </Dialog>
-        )
+    )
 }

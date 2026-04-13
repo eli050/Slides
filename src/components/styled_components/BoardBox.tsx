@@ -1,7 +1,7 @@
 import Box from "@mui/material/Box";
 import { styled } from "@mui/material/styles";
 
-export const BoardBox = styled(Box)<{ boardSize: number }>(({boardSize}) => ({
+export const BoardBox = styled(Box)<{ boardSize: number }>(({ boardSize }) => ({
   "--light-blue": "#88bed7ff",
   width: 400,
   height: 400,

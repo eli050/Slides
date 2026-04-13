@@ -1,80 +1,74 @@
 import { useForm } from "react-hook-form";
-import { AuthForm } from "../styled_components/AuthForm";
-import { Button, CardHeader, DialogActions } from '@mui/material';
+import { Button, CardHeader, DialogActions, } from '@mui/material';
 import { Input } from "../styled_components/Input";
 import { AuthButton } from "../styled_components/AuthButton";
-import { Link, useNavigate } from "react-router-dom";
-import Typography from "@mui/material/Typography";
-import type { SignUpData } from "../../constants/authTypes";
+import {useNavigate, type NavigateFunction } from "react-router-dom";
+import type { User } from "../../constants/authTypes";
 import { AlertPopUp } from "../AlertPopUp";
+import { BaseAuthForm } from "./BaseAuthForm";
+import type { Dispatch } from "react";
+import { SIGN_IN_PATH } from "../../constants/URLpaths";
 
 type SignUpProps = {
-    onSubmit: (data:SignUpData) => void;
-    error: string|null;
-    setError: React.Dispatch<React.SetStateAction<string|null>>;
+    onSubmit: (user: User) => void;
+    error: string | null;
+    setError: Dispatch<React.SetStateAction<string | null>>;
 }
 
-export function SignUp({onSubmit, error, setError}:SignUpProps):JSXElement{
+function handleSignInButton(setError: Dispatch<React.SetStateAction<string | null>>, navigate: NavigateFunction): void {
+    setError(null);
+    navigate(SIGN_IN_PATH)
+}
+
+export function SignUp({ onSubmit, error, setError }: SignUpProps): JSXElement {
     const navigate = useNavigate()
     const {
         register,
-        handleSubmit,
         formState: { errors },
-        } = useForm<SignUpData>()
+        handleSubmit
+    } = useForm<User>()
 
     return (
-        <AuthForm onSubmit={handleSubmit(onSubmit)}>
-            <CardHeader title="Sign Up" />
-            
-            <Input
-                label="Name"
-                type="text"
-                error={!!errors.name}
-                helperText={errors.name?.message ?? ""}
-                {...register("name", { required: "Name is required" })}
-            />
+        <BaseAuthForm
+            onSubmit={onSubmit}
+            register={register}
+            errors={errors}
+            handleSubmit={handleSubmit}
+            topChildren={
+                <>
+                    <CardHeader title="Sign Up" />
 
-            <Input
-                label="Email"
-                type="email"
-                error={!!errors.email}
-                helperText={errors.email?.message ?? ""}
-                {...register("email", { required: "Email is required" })}
-            />
+                    <Input
+                        label="Name"
+                        type="text"
+                        error={!!errors.name}
+                        helperText={errors.name?.message ?? ""}
+                        {...register("name", { required: "Name is required" })}
+                    />
+                </>}
+            bottomChildren={
+                <>
+                    <AuthButton type="submit">
+                        Sign Up
+                    </AuthButton>
 
-            <Input
-                label="Password"
-                type="password"
-                error={!!errors.email}
-                helperText={errors.password?.message ?? ""}
-                {...register("password", { required: "Password is required" })}
-            />
-
-            <AuthButton type="submit">
-                SignUp
-            </AuthButton>
-
-            <Typography>
-                You already have an account?{" "}
-                <Link to="/sign-in" >Sign in</Link>
-            </Typography>
-            <AlertPopUp 
-                open={!!error}
-                onClose={() => setError(null)}
-                title="Error!"
-                content={`${error}`}
-            >
-                <DialogActions>
-                    <Button
-                    onClick={() => {
-                        setError(null);
-                        navigate("/sign-in")
-                    }}
+                    <AlertPopUp
+                        open={!!error}
+                        onClose={() => setError(null)}
+                        title="Error!"
+                        content={error}
                     >
-                        Sign In
-                    </Button>
-                </DialogActions>  
-            </AlertPopUp>
-        </AuthForm>
+                        <DialogActions>
+                            <Button
+                                onClick={() => {
+                                    handleSignInButton(setError, navigate)
+                                }}
+                            >
+                                Sign In
+                            </Button>
+                        </DialogActions>
+                    </AlertPopUp>
+                </>}
+                />
     )
 }

@@ -1,9 +1,6 @@
 import { styled } from "@mui/material/styles";
 import { Form } from "../auth_components/Form";
 
-
-
-
 export const AuthForm = styled(Form)({
     "--deep-blue": "rgb(5, 42, 59)",
     height: 500,
