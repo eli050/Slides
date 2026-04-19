@@ -2,7 +2,6 @@ import { range, random } from "lodash";
 
 const EMPTY_TILE = 0;
 
-
 function getNeighbors(index: number, boardLength: number): number[] {
     const boardSize = boardLength ** (0.5)
     const row = Math.floor(index / boardSize);
@@ -31,6 +30,7 @@ function getNeighbors(index: number, boardLength: number): number[] {
 export function canMove(board: number[], index: number): boolean {
     const emptyTileIndex = board.indexOf(EMPTY_TILE);
     const neighbors = getNeighbors(emptyTileIndex, board.length)
+
     return neighbors.includes(index);
 }
 
@@ -38,11 +38,12 @@ export function swapTiles(board: number[], index: number): number[] {
     const emptyIndex: number = board.indexOf(EMPTY_TILE);
     const nextBoard = [...board];
     [nextBoard[index], nextBoard[emptyIndex]] = [nextBoard[emptyIndex], nextBoard[index]]
+
     return nextBoard;
 }
 
 export function createBoard(start: number, end: number): number[] {
-    let board = range(start, end);
+    let board = [...range(start, end), EMPTY_TILE];
     const shuffleTimes = random(200, 500);
 
     for (let i = 0; i < shuffleTimes; i++) {
@@ -53,4 +54,10 @@ export function createBoard(start: number, end: number): number[] {
     }
 
     return board;
+}
+
+export function isBoardComplete(board: number[]): boolean {
+    const completeBoard = [...range(1, board.length), EMPTY_TILE]
+    
+    return JSON.stringify(board) === JSON.stringify(completeBoard);
 }

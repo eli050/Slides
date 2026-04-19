@@ -1,4 +1,4 @@
-import {TileButton} from "./styled_components/TileButton";
+import { TileButton } from "../styled_components/TileButton";
 
 type TileProps = {
     value?: number | null;
@@ -7,7 +7,6 @@ type TileProps = {
 }
 
 export function Tile({ value = null, onClick, disabled }: TileProps): JSXElement {
-
     return (
         <TileButton
             onClick={onClick} disabled={disabled}>
