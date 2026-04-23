@@ -5,7 +5,7 @@ export const STAGES = {
 } as const;
 
 export type User = {
-    name: string;
-    email: string;
-    password: string;
+  name: string;
+  email: string;
+  password: string;
 };

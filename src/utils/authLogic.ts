@@ -1,4 +1,4 @@
-import type {User } from "../constants/authTypes";
+import type { User } from "../constants/authTypes";
 import { addUser, getUser } from "./localStorageDAL";
 
 type SignInResult =

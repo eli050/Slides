@@ -2,7 +2,8 @@ import { TextField } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 export const Input = styled(TextField)({
-    "--azure-blue": "rgb(70, 151, 232)",
+    '--azure-blue': "rgb(94, 141, 187)",
+    '--dark-blue': "#b1cae4",
 
     "& .MuiInputLabel-root": {
         color: "white",
@@ -18,6 +19,15 @@ export const Input = styled(TextField)({
         borderRadius: 8,
     },
 
+    "& .MuiInputLabel-root.Mui-disabled": {
+        color: "gray",
+        opacity: 0.8,
+    },
+
+    "& .MuiOutlinedInput-root.Mui-disabled": {
+        backgroundColor: "var(--dark-blue)",
+    },
+
     "& .MuiOutlinedInput-root fieldset": {
         borderColor: "transparent",
     },
@@ -30,9 +40,18 @@ export const Input = styled(TextField)({
         borderColor: "white",
     },
 
+    "& .MuiOutlinedInput-root.Mui-disabled fieldset": {
+        borderColor: "transparent",
+    },
+
     "& .MuiOutlinedInput-input": {
         color: "white",
         backgroundColor: "transparent",
+    },
+
+    "& .MuiOutlinedInput-input.Mui-disabled": {
+        WebkitTextFillColor: "gray",
+        opacity: 0.8,
     },
 
     "& .MuiOutlinedInput-input::placeholder": {

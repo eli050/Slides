@@ -21,7 +21,9 @@ export function Board({
 
     function handleTileClick(index: number) {
 
+        if (!canPlay) return;
         if (!canMove(tileValues, index)) return;
+
         const newBoard = swapTiles(tileValues, index);
         setTileValues(newBoard);
 
@@ -33,14 +35,20 @@ export function Board({
     return (
         <BoardBox boardSize={boardSize}>
             {tileValues.map(
-                (value, index) =>
-                    <Tile
-                        key={value}
-                        onClick={() => handleTileClick(index)}
-                        value={!(value === EMPTY_TILE) ? value : null}
-                        disabled={!canMove(tileValues, index) || !canPlay}
-                    />
-            )}
+                (value, index) => {
+                    const movable = canMove(tileValues, index);
+
+                    return (
+                        <Tile
+                            key={value}
+                            onClick={() => handleTileClick(index)}
+                            value={!(value === EMPTY_TILE) ? value : null}
+                            disabled={(!movable || !canPlay)}
+                            showAsMovable={movable}
+                            hidden={value === EMPTY_TILE}
+                        />
+                    )
+                })}
         </BoardBox>
     )
 }

@@ -1,6 +1,7 @@
 import { range, random } from "lodash";
+import { START_TILE } from "../constants/gameConsts";
 
-const EMPTY_TILE = 0;
+export const EMPTY_TILE = 0;
 
 function getNeighbors(index: number, boardLength: number): number[] {
     const boardSize = boardLength ** (0.5)
@@ -42,8 +43,14 @@ export function swapTiles(board: number[], index: number): number[] {
     return nextBoard;
 }
 
+export function createCompletedBoard(start: number, end: number): number[] {
+    const completedBoard = [...range(start, end), EMPTY_TILE]
+
+    return completedBoard
+}
+
 export function createBoard(start: number, end: number): number[] {
-    let board = [...range(start, end), EMPTY_TILE];
+    let board = createCompletedBoard(start, end);
     const shuffleTimes = random(200, 500);
 
     for (let i = 0; i < shuffleTimes; i++) {
@@ -57,7 +64,22 @@ export function createBoard(start: number, end: number): number[] {
 }
 
 export function isBoardComplete(board: number[]): boolean {
-    const completeBoard = [...range(1, board.length), EMPTY_TILE]
-    
-    return JSON.stringify(board) === JSON.stringify(completeBoard);
+    const completedBoard = createCompletedBoard(START_TILE, board.length);
+
+    return JSON.stringify(board) === JSON.stringify(completedBoard);
+}
+
+export function reaplaceToMatrix(board: number[]): string[][] {
+    const sliceLength = board.length ** (0.5)
+    const result = [];
+    let start = 0;
+
+    for (let i = 0; i < sliceLength; i++) {
+        const row = board.slice(start, start + sliceLength)
+        result.push(row.map(String));
+        start += sliceLength;
+    }
+
+    return result;
+
 }

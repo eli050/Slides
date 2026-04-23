@@ -12,13 +12,13 @@ type AuthPageProps = {
     stage: "sign-in" | "sign-up"
 }
 
-export function AuthPage({stage}:AuthPageProps): JSXElement{
+export function AuthPage({ stage }: AuthPageProps): JSXElement {
     const [error, setError] = useState<string | null>(null);
     const { setCurrentUser } = useUser();
     const navigate = useNavigate();
 
     function onSubmit(data: User) {
-        const result = (stage===STAGES.SIGN_IN_STAGE)? signIn(data) : signUp(data);
+        const result = (stage === STAGES.SIGN_IN_STAGE) ? signIn(data) : signUp(data);
 
         if (result.status !== "success") {
             setError(result.message);
@@ -30,10 +30,10 @@ export function AuthPage({stage}:AuthPageProps): JSXElement{
     }
 
     return (
-        (stage===STAGES.SIGN_IN_STAGE) ? 
-        <SignIn onSubmit={onSubmit} error={error} setError={setError} />
-        :
-        <SignUp onSubmit={onSubmit} error={error} setError={setError} />
+        (stage === STAGES.SIGN_IN_STAGE) ?
+            <SignIn onSubmit={onSubmit} error={error} setError={setError} />
+            :
+            <SignUp onSubmit={onSubmit} error={error} setError={setError} />
 
-     ) 
+    )
 }
