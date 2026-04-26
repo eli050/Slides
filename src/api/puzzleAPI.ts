@@ -3,7 +3,7 @@ const API_ROUTE = import.meta.env.VITE_API_ROUTE;
 
 type solvePuzzleRequest = {
   board: string[][];
-  movable_tile: string;
+  movableTile: string;
   targetBoard: string[][]
 }
 
@@ -26,10 +26,10 @@ type ValidationErrorItem = {
   ctx?: Record<string, unknown>;
 };
 
-export async function solvePuzzle({ board, movable_tile, targetBoard }: solvePuzzleRequest) {
+export async function solvePuzzle({ board, movableTile, targetBoard }: solvePuzzleRequest) {
   const data = {
     "board": board,
-    "movable_tile": movable_tile,
+    "movable_tile": movableTile,
     "target_board": targetBoard
   }
 
@@ -44,7 +44,7 @@ export async function solvePuzzle({ board, movable_tile, targetBoard }: solvePuz
   if (!response.ok) {
     const errorData: ApiValidationError = await response.json();
     console.log(errorData);
-    throw new Error(response.statusText ?? "Someting was wrong");
+    throw new Error(response.statusText ?? "Something was wrong");
   }
 
   return await response.json();
