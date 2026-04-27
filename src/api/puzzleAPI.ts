@@ -14,18 +14,6 @@ export type SolvePuzzleResponse = {
   move_directions: string[];
 };
 
-type ApiValidationError = {
-  detail: ValidationErrorItem[];
-};
-
-type ValidationErrorItem = {
-  loc: (string | number)[];
-  msg: string;
-  type: string;
-  input: unknown;
-  ctx?: Record<string, unknown>;
-};
-
 export async function solvePuzzle({ board, movableTile, targetBoard }: solvePuzzleRequest) {
   const data = {
     "board": board,
