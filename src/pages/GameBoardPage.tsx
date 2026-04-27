@@ -19,15 +19,15 @@ const DEFAULT_SIZE = MINIMUM_SIZE;
 const WAIT_TIME = 1000;
 
 export function GameBoardPage(): JSXElement {
-    const [isWon, setIsWon] = useState<boolean>(false);
-    const [canPlay, setCanPlay] = useState<boolean>(true);
+    const { currentUser } = useUser();
     const [boardSize, setBoardSize] = useState<number>(DEFAULT_SIZE)
     const [tileValues, setTileValues] = useState<number[]>(createBoard(START_TILE, boardSize ** 2));
+    const [isWon, setIsWon] = useState<boolean>(false);
+    const [canPlay, setCanPlay] = useState<boolean>(true);
     const [isSimulationNotActive, setIsSimulationNotActive] = useState<boolean>(true);
     const isSimulationPlayingRef = useRef<boolean>(false);
     const [isSimulationPlaying, setIsSimulationPlaying] = useState<boolean>(isSimulationPlayingRef.current);
     const resumeSimulationRef = useRef<(() => void) | null>(null);
-    const { currentUser } = useUser();
     const {
         mutate,
         error,
@@ -36,13 +36,6 @@ export function GameBoardPage(): JSXElement {
         reset
     } = useSolvePuzzle();
 
-    function handleShuffleClick() {
-        reset();
-        const newBoard = createBoard(START_TILE, boardSize ** 2);
-        setTileValues(newBoard);
-        setCanPlay(true);
-    }
-
     function handleBoardSizeChange(newSize: number) {
         reset();
         setBoardSize(newSize);
@@ -50,14 +43,21 @@ export function GameBoardPage(): JSXElement {
         setCanPlay(true);
     }
 
-    function handleWinPopUpClose() {
-        setIsWon(false);
-        setCanPlay(false);
+    function handleShuffleClick() {
+        reset();
+        const newBoard = createBoard(START_TILE, boardSize ** 2);
+        setTileValues(newBoard);
+        setCanPlay(true);
     }
 
-    function handlePlayAgain() {
-        setIsWon(false);
-        setCanPlay(true);
+    function handleSolveButtonClick() {
+        reset()
+        const board = reaplaceToMatrix(tileValues)
+        const movableTile = `${EMPTY_TILE}`
+        const targetBoard = reaplaceToMatrix(createCompletedBoard(START_TILE, tileValues.length))
+        mutate({ board, movableTile, targetBoard }, {
+            onSuccess: async (data) => startSimulatuon(data)
+        })
     }
 
     function pauseSimulation() {
@@ -98,19 +98,19 @@ export function GameBoardPage(): JSXElement {
         setIsSimulationNotActive(true);
     }
 
-    function handleSolveButtonClick() {
-        reset()
-        const board = reaplaceToMatrix(tileValues)
-        const movableTile = `${EMPTY_TILE}`
-        const targetBoard = reaplaceToMatrix(createCompletedBoard(START_TILE, tileValues.length))
-        mutate({ board, movableTile, targetBoard }, {
-            onSuccess: async (data) => startSimulatuon(data)
-        })
-    }
-
     function handlePlaySimulationButtonClick() {
         isSimulationPlayingRef.current ? pauseSimulation() : resumeSimulation();
         setIsSimulationPlaying(isSimulationPlayingRef.current)
+    }
+
+    function handleWinPopUpClose() {
+        setIsWon(false);
+        setCanPlay(false);
+    }
+
+    function handlePlayAgain() {
+        setIsWon(false);
+        setCanPlay(true);
     }
 
     return (
