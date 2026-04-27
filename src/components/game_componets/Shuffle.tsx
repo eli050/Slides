@@ -1,14 +1,15 @@
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
-import { ShuffleButton } from "../styled_components/ShuffleButton";
+import { IconButton } from "../styled_components/IconButton";
 
 type ShuffleProps = {
     onClick: () => void;
+    disabled: boolean;
 }
 
-export function Shuffle({ onClick }: ShuffleProps): JSXElement {
+export function Shuffle({ onClick, disabled }: ShuffleProps): JSXElement {
     return (
-        <ShuffleButton onClick={onClick}>
+        <IconButton onClick={onClick} disabled={disabled}>
             <RestartAltIcon />
-        </ShuffleButton>
+        </IconButton>
     )
 }
